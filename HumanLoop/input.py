@@ -3,13 +3,14 @@ from langchain_core.messages import HumanMessage
 from langgraph.graph import add_messages, StateGraph, END
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 
 load_dotenv()
 
 class State(TypedDict): 
     messages: Annotated[list, add_messages]
-
+llm = ChatGoogleGenerativeAI("model":"gemini-2.5-flash", temperature=0,transport='rest')
 llm = ChatGroq(model="llama-3.1-8b-instant")
 
 GENERATE_POST = "generate_post"
@@ -69,5 +70,3 @@ response = app.invoke({
 })
 
 print(response)
-
-
